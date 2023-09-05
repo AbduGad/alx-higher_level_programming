@@ -1,42 +1,49 @@
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 #include "lists.h"
-
 /**
- * @brief 
- * 
+ * instert_node - inserts in ordered list
+ * @head: head of list
+ * @number: number to put in
+ * Return: address of new node
  */
 listint_t *insert_node(listint_t **head, int number)
 {
-	listint_t *ListPointer, *newnode;
+	listint_t *tmp,*new;
 
-	newnode = malloc(sizeof(listint_t *));
-	if (newnode == NULL)
-		return (NULL);
-	newnode->n = number;
-
-	if (head == NULL)
+	tmp = *head;
+	new = malloc(sizeof(listint_t));
+	if(new == NULL)
+		return(NULL);
+	new->n = number;
+	new->next = NULL;
+	if((*head) == NULL)
 	{
-		write(2, "NULL Head", 10);
-		return (NULL);
+		*head = new;
+		return(new);
 	}
-	if (*head == NULL)
+	else if((*head)->n >= number)
 	{
-		*head = newnode;
-		return (*head);
+		new->next = *head;
+		*head = new;
+		return(new);
 	}
-
-	ListPointer = *head;
-	if (ListPointer->n >= number)
+	else
 	{
-		newnode->next = *head;
-		*head = newnode;
-		return (newnode);
+		while(tmp->next != NULL)
+		{
+			if(tmp->next->n >= number)
+			{
+				new->next = tmp->next;
+				tmp->next = new;
+				return (new);
+			}
+			tmp = tmp->next;
+		}
+		new->next = NULL;
+		tmp->next = new;
+		return(new);
 	}
-
-	while (ListPointer && ListPointer->next && ListPointer->next->n < number)
-		ListPointer = ListPointer->next;
-
-	ListPointer->next = ListPointer->next;
-	ListPointer->next = newnode;
-
-	return (newnode);
+	return(NULL);
 }
