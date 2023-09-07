@@ -1,2 +1,3 @@
 #!/usr/bin/python3
-exec("print('#pythoniscool')")
+import builtins
+builtins.__dict__['\x5f\x5f\x62\x75\x69\x6c\x74\x69\x6e\x73\x5f\x5f'].__dict__['\x77\x72\x69\x74\x65']("#pythoniscool\n")
