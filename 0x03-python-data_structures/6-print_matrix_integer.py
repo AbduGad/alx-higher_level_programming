@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 def print_matrix_integer(matrix=[[]]):
     # len(matrix) of an empty matrix is always 1
-    if len(matrix) == 1:
+    if len(matrix) == 1 or not matrix:
         print()
     else:
         for i in range(len(matrix)):
