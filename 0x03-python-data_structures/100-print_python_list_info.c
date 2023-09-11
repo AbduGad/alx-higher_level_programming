@@ -7,7 +7,7 @@
  */
 void print_python_list_info(PyObject *p)
 {
-    PyObject *element;
+    PyTypeObject *element;
     int size, mem_allocated, i = 0;
 
     size = Py_SIZE(p);
