@@ -9,10 +9,11 @@
 int is_palindrome(listint_t **head)
 {
 	int listlength, flag_odd, array[(list_len(*head) / 2)], i = 0, flag = 0;
-	listint_t *temp = *head;
+	
 
 	flag_odd = 0;
 	listlength = list_len(*head);
+	listint_t *temp = *head;
 
 	if (listlength == 0 || listlength == 1)
 		return (1);
