@@ -4,8 +4,8 @@ def roman_to_int(roman_string):
                   'C': 100, 'D': 500, 'M': 1000}
     prev = 0
     sum = 0
-    if type(roman_string) is not str or roman_string is None:
-        return 0
+    """if type(roman_string) is not str or roman_string is None:
+        return 0"""
     for i in roman_string:
         if roman_dict[i] > prev:
             sum += roman_dict[i] - prev * 2
