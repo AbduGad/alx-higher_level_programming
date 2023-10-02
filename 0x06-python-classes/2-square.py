@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""Square class"""
+
+
 class Square:
     """square attr: size some attributes are protected from input. """
     def __init__(self, size=0):
