@@ -5,17 +5,20 @@
 class Rectangle:
     """rectangle class with priv height and width"""
     def __init__(self, width=0, height=0):
-        self.width(width)
-        self.height(height)
+        self.width = width
+        self.height = height
 
+    @property
     def width(self):
         """geeter for width"""
         return self.__width
 
+    @property
     def height(self):
         """getter for height"""
         return self.__height
 
+    @width.setter
     def width(self, value):
         """setter for width"""
         if type(value) is not int:
@@ -25,6 +28,7 @@ class Rectangle:
         else:
             self.__width = value
 
+    @height.setter
     def height(self, value):
         """setter for height"""
         if type(value) is not int:
