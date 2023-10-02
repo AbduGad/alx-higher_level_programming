@@ -5,8 +5,8 @@
 class Rectangle:
     """rectangle class with priv height and width"""
     def __init__(self, width=0, height=0):
-        self.width = width
-        self.height = height
+        self.width(width)
+        self.height(height)
 
     def width(self):
         """geeter for width"""
