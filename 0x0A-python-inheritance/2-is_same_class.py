@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" """
+""" is sams class"""
 
 
 def is_same_class(obj, a_class):

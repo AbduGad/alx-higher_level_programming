@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" """
+"""square continued """
 
 
 Rectangle = __import__('9-rectangle').Rectangle
