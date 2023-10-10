@@ -1,10 +1,17 @@
 #!/usr/bin/python3
-"""class to json"""
+""" load json to object module
+    Functions:
+        load_from_json: open and return a read json
+"""
+
+import json
 
 
-def class_to_json(obj):
-    """creates a json representation of an object without using
-        json module. One liner!! (without pep8 fix) :D
+def load_from_json_file(filename):
+    """ Returns a read json
+        Args:
+            filename: json file
     """
-    return repr({key: value for (key, value) in obj.__dict__.items()
-                if key in list(obj.__dict__.keys())})
+
+    with open(filename, encoding='utf-8') as file:
+        return json.loads(file.read())
