@@ -25,6 +25,25 @@ class Square(Rectangle):
         """str"""
         return f"[Square] ({self.id}) {self.x}/{self.y} - {self.width}"
 
+    def update(self, *args, **kwargs):
+        """ update a class square with
+            args o kwargs
+            Args:
+                *args: no keyworded args
+                **kwargs: keyworded args
+        """
+
+        setter = ['id',
+                  'size',
+                  'x',
+                  'y']
+        if args and len(args) > 0:
+            for counter, arg in enumerate(args):
+                setattr(self, setter[counter], arg)
+        else:
+            for key, value in kwargs.items():
+                setattr(self, key, value)
+	
     def to_dictionary(self):
         """dictionary"""
         return {"id": self.id, "size": self.size, "x": self.x, "y": self.y}
