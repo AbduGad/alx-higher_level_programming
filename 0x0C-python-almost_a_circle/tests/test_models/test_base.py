@@ -90,3 +90,6 @@ class TestBase(unittest.TestCase):
         list_squares_output = Square.load_from_file()
         for thing in list_squares_output:
             self.assertTrue(type(thing) is Square)
+
+if __name__ == '__main__':
+    unittest.main()
