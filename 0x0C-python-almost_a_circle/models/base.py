@@ -19,6 +19,11 @@ class Base():
 	
 	@staticmethod
 	def to_json_string(list_dictionaries):
+		""" Write a Json file with list_objs
+            Args:
+                cls: class name
+                list_objs: list of instances
+        """
 		if list_dictionaries in (None, []):
 			return "[]"
 		else:
@@ -26,6 +31,7 @@ class Base():
 
 	@classmethod
 	def save_to_file(cls, list_objs):
+		""" Save the content into a JSON file"""
 		save = []
 		if list_objs:
 			for obj in list_objs:
@@ -35,12 +41,17 @@ class Base():
 	
 	@staticmethod
 	def from_json_string(json_string):
+		""" Read a Json string and return a list of objects"""
 		if json_string is None:
 			return []
 		return json.loads(json_string)
 	
 	@classmethod
 	def create(cls, **dictionary):
+		""" Create and set a new instance
+            Args:
+                **dictionary: kwargs of class
+        """
 		if cls.__name__ == "Rectangle":
 			dummy = cls(0)
 		elif cls.__name__ == "Square":
@@ -50,6 +61,9 @@ class Base():
 
 	@classmethod
 	def load_from_file(cls):
+		""" Instantiate and return a list of
+            instances from json file
+        """
 		inst_list = []
 		try:
 			with open(cls.__name__ + ".json", 'r') as file:
