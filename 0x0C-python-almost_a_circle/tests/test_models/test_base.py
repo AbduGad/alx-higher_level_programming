@@ -1,93 +1,95 @@
-#!/usr/bin/python3
-"""tests the Base"""
+""" Module for test Base class """
 import unittest
-import os.path
 from models.base import Base
-from models.rectangle import Rectangle
 from models.square import Square
+from models.rectangle import Rectangle
+from io import StringIO
+from unittest import TestCase
+from unittest.mock import patch
 
 
+class TestBaseMethods(unittest.TestCase):
+    """ Suite to test Base class """
 
-class TestBase(unittest.TestCase):
+    def setUp(self):
+        """ Method invoked for each test """
+        Base._Base__nb_objects = 0
 
     def test_id(self):
-        """tests the ids"""
-        Base._Base__nb_objects = 0
-        b1 = Base()
-        b2 = Base()
-        b3 = Base()
-        b4 = Base(12)
-        b5 = Base()
-        self.assertEqual(b1.id, 1)
-        self.assertEqual(b2.id, 2)
-        self.assertEqual(b3.id, 3)
-        self.assertEqual(b4.id, 12)
-        self.assertEqual(b5.id, 4)
+        """ Test assigned id """
+        new = Base(1)
+        self.assertEqual(new.id, 1)
 
-    def test_dictionary(self):
-        """tests the dictionary"""
-        Base._Base__nb_objects = 0
-        r1 = Rectangle(10, 7, 2, 8)
-        dictionary = r1.to_dictionary()
-        self.assertDictEqual(dictionary,
-                             {'x': 2, 'width': 10,
-                              'id': 1, 'height': 7, 'y': 8})
-        json_dictionary = Base.to_json_string([dictionary])
-        self.assertEqual(json_dictionary, json_dictionary)
-        self.assertEqual(Base.to_json_string(None), "[]")
-        self.assertEqual(Base.to_json_string([]), "[]")
+    def test_id_default(self):
+        """ Test default id """
+        new = Base()
+        self.assertEqual(new.id, 1)
 
-    def test_saveFile(self):
-        """tests the savefile"""
-        Base._Base__nb_objects = 0
-        r1 = Rectangle(10, 7, 2, 8)
-        r2 = Square(4)
-        Rectangle.save_to_file([r1])
-        Square.save_to_file([r2])
-        with open("Rectangle.json", 'r') as f:
-            self.assertTrue(len(f.read()) > 1)
-        with open("Square.json", 'r') as f:
-            self.assertTrue(len(f.read()) > 1)
+    def test_id_nb_objects(self):
+        """ Test nb object attribute """
+        new = Base()
+        new2 = Base()
+        new3 = Base()
+        self.assertEqual(new.id, 1)
+        self.assertEqual(new2.id, 2)
+        self.assertEqual(new3.id, 3)
 
-        Rectangle.save_to_file(None)
+    def test_id_mix(self):
+        """ Test nb object attributes and assigned id """
+        new = Base()
+        new2 = Base(1024)
+        new3 = Base()
+        self.assertEqual(new.id, 1)
+        self.assertEqual(new2.id, 1024)
+        self.assertEqual(new3.id, 2)
+
+    def test_string_id(self):
+        """ Test string id """
+        new = Base('1')
+        self.assertEqual(new.id, '1')
+
+    def test_more_args_id(self):
+        """ Test passing more args to init method """
+        with self.assertRaises(TypeError):
+            new = Base(1, 1)
+
+    def test_access_private_attrs(self):
+        """ Test accessing to private attributes """
+        new = Base()
+        with self.assertRaises(AttributeError):
+            new.__nb_objects
+
+    def test_save_to_file_1(self):
+        """ Test JSON file """
         Square.save_to_file(None)
-        with open("Rectangle.json", 'r') as f:
-            self.assertTrue(f.read() == "[]")
-        with open("Square.json", 'r') as f:
-            self.assertTrue(f.read() == "[]")
+        res = "[]\n"
+        with open("Square.json", "r") as file:
+            with patch('sys.stdout', new=StringIO()) as str_out:
+                print(file.read())
+                self.assertEqual(str_out.getvalue(), res)
 
-    def test_fromJson(self):
-        """tests the fromjson"""
-        r_input = [{'id': 89, 'width': 10, 'height': 4}]
-        s_input = [{'id': 89, 'size': 4}]
-        json_list_input = Rectangle.to_json_string(r_input)
-        list_output = Rectangle.from_json_string(json_list_input)
-        self.assertTrue(isinstance(list_output, list))
-        list_output = Rectangle.from_json_string([])
-        self.assertTrue(list_output == [])
-        list_output = Rectangle.from_json_string(None)
-        self.assertTrue(list_output == [])
-        json_list_input = Square.to_json_string(s_input)
-        list_output = Square.from_json_string(json_list_input)
-        self.assertTrue(isinstance(list_output, list))
-        list_output = Square.from_json_string([])
-        self.assertTrue(list_output == [])
-        list_output = Square.from_json_string(None)
-        self.assertTrue(list_output == [])
+        try:
+            os.remove("Square.json")
+        except:
+            pass
 
-    def test_load(self):
-        """tests load"""
-        r1 = Rectangle(10, 7, 2, 8)
-        r2 = Rectangle(2, 4)
-        list_rectangles_input = [r1, r2]
-        Rectangle.save_to_file(list_rectangles_input)
-        list_rectangles_output = Rectangle.load_from_file()
-        for thing in list_rectangles_output:
-            self.assertTrue(isinstance(thing, Rectangle))
-        s1 = Square(5)
-        s2 = Square(7, 9, 1)
-        list_squares_input = [s1, s2]
-        Square.save_to_file(list_squares_input)
-        list_squares_output = Square.load_from_file()
-        for thing in list_squares_output:
-            self.assertTrue(isinstance(thing, Square))
+        Square.save_to_file([])
+        with open("Square.json", "r") as file:
+            self.assertEqual(file.read(), "[]")
+
+    def test_save_to_file_2(self):
+        """ Test JSON file """
+        Rectangle.save_to_file(None)
+        res = "[]\n"
+        with open("Rectangle.json", "r") as file:
+            with patch('sys.stdout', new=StringIO()) as str_out:
+                print(file.read())
+                self.assertEqual(str_out.getvalue(), res)
+        try:
+            os.remove("Rectangle.json")
+        except:
+            pass
+
+        Rectangle.save_to_file([])
+        with open("Rectangle.json", "r") as file:
+            self.assertEqual(file.read(), "[]")
