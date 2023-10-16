@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """Rectangle module"""
 
-from models.base import Base
+from base import Base
 
 
 
@@ -88,13 +88,16 @@ class Rectangle(Base):
 		print(('#' * self.width + '\n') * self.height, end = "")
 
 	def __str__(self):
+		"""__str__"""
 		return f"[Rectangle] ({self.id}) {self.x}/{self.y} - {self.width}/{self.height}"
 
 	def display(self):
+		"""display"""
 		print(("" + '\n') * self.y, end = "")
 		print(((self.x * " ") + ('#' * self.width + '\n')) * self.height, end = "")
 
 	def update(self, *args, **kwargs):
+		"""update"""
 		if args:
 			atr_list = ["id", "width", "height",
 			 "x", "y"]
@@ -105,5 +108,6 @@ class Rectangle(Base):
 				setattr(self, key, value)
 
 	def to_dictionary(self):
+		"""dictionary"""
 		return {"id": self.id,"width": self.width,"height": self.height,
 		  "x": self.x,"y": self.y}
