@@ -99,7 +99,7 @@ class Rectangle(Base):
         """update"""
         if args:
             atr_list = ["id", "width", "height",
-                     "x", "y"]
+                        "x", "y"]
             for i, each in enumerate(args):
                 setattr(self, atr_list[i], each)
         else:
