@@ -52,7 +52,7 @@ class Base():
         **dictionary: kwargs of class
         """
         if cls.__name__ == "Rectangle":
-            dummy = cls(0)
+            dummy = cls(0, 0)
         elif cls.__name__ == "Square":
             dummy = cls(0)
         dummy.update(**dictionary)
