@@ -121,7 +121,3 @@ class TestRectangle(unittest.TestCase):
         s2 = Rectangle.create(**s1_dictionary)
         self.assertFalse(s1 is s2)
         self.assertFalse(s1 == s2)
-
-
-if __name__ == '__main__':
-    unittest.main()
