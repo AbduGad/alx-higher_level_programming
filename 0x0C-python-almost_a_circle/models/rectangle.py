@@ -17,11 +17,11 @@ class Rectangle(Base):
                 y: second position
                 id: identification
         """
-		super().__init__(id)
 		self.width = width
 		self.height = height
 		self.x = x
 		self.y = y
+		super().__init__(id)
 	
 	@property
 	def width(self):
