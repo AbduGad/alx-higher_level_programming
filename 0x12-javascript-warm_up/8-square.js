@@ -7,8 +7,9 @@ if (!parseInt(process.argv[2])) {
 		for (let j = 0; j < parseInt(process.argv[2]); j++) {
 			result += 'X';
 		}
-		if (i != parseInt(process.argv[2]) - 1)
+		if (i != parseInt(process.argv[2]) - 1) {
 			result += '\n';
+		}
 	}
 	console.log(result);
 }

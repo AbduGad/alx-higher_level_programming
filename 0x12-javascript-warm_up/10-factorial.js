@@ -12,4 +12,4 @@ function factorialize (num) {
 	}
   }
   
-  console.log(factorialize(parseInt(process.argv[2])));
+console.log(factorialize(parseInt(process.argv[2])));
