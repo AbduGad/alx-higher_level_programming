@@ -1,25 +1,17 @@
 #!/usr/bin/python3
-"""script for use in getting all states from sql db
 """
-import MySQLdb
+lists all cities from the database hbtn_0e_4_usa
+"""
+
 import sys
+import MySQLdb
 
-
-if __name__ == '__main__':
-    args = sys.argv
-    if len(args) < 5:
-        print("Usage: {} username password db_name state_name".format(args[0]))
-        exit(1)
-    username = args[1]
-    password = args[2]
-    data = args[3]
-    state_name = args[4]
-    db = MySQLdb.connect(host='localhost', user=username,
-                         passwd=password, db=data,
-                         port=3306)
-    cur = db.cursor()
-    num_rows = cur.execute("SELECT * FROM states ORDER BY states.id")
-    rows = cur.fetchall()
-    for row in rows:
-        if (state_name == row[1]):
-            print(row)
+if __name__ == "__main__":
+    db = MySQLdb.connect(user=sys.argv[1], passwd=sys.argv[2], db=sys.argv[3])
+    c = db.cursor()
+    c.execute("""SELECT cities.id, cities.name, states.name
+                FROM cities
+                JOIN states
+                ON cities.state_id = states.id
+                ORDER BY cities.id ASC""")
+    [print(city) for city in c.fetchall()]
