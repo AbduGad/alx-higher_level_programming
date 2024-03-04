@@ -1,11 +1,13 @@
 #!/usr/bin/python3
 """fetches https://intranet.hbtn.io/status"""
-from urllib import request
+import urllib.request as urlR
+
 
 if __name__ == "__main__":
-    with request.urlopen("https://intranet.hbtn.io/status") as response:
-        temp = response.read()
+    link = "https://alx-intranet.hbtn.io/status"
+    with urlR.urlopen(link) as marko:
+        polo = marko.read()
         print("Body response:")
-        print("\t- type: {}".format(type(temp)))
-        print("\t- content: {}".format(temp))
-        print("\t- utf8 content: {}".format(temp.decode()))
+        print("\t- type: {}".format(type(polo)))
+        print("\t- content: {}".format(polo))
+        print("\t- utf8 content: {}".format(polo.decode()))
